@@ -42,7 +42,7 @@ export const updateSong = async (req: Request, res: Response) => {
   res.json(updated);
 };
 
-export const deleteSong = async (req: Request, res: Response) => {
+export const deleteSongEx = async (req: Request, res: Response) => {
   if(!req?.body?.id)
     return res.status(400).json({'message': 'song id required'})
   const song = await Song.findOne({_id: req.body.id}).exec();
@@ -50,6 +50,16 @@ export const deleteSong = async (req: Request, res: Response) => {
     return res.status(400).json({'message': `song with id:${req.body.id} was not found`})
   await Song.findByIdAndDelete(req.params.id);
   res.status(204).end();
+};
+export const deleteSong = async (req: Request, res: Response) => {
+  const { id } = req.params; // ✅ Get ID from URL params
+  if (!id) return res.status(400).json({ message: 'Song ID required' });
+
+  const song = await Song.findOne({ _id: id }).exec();
+  if (!song) return res.status(400).json({ message: `Song with id:${id} not found` });
+
+  await Song.findByIdAndDelete(id);
+  res.status(204).end(); // No content, successfully deleted
 };
 
 export const getStatsOverview = async (_req: Request, res: Response) => {
