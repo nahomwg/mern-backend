@@ -29,6 +29,6 @@ A RESTful backend service for the Music Hub app built with **Node.js + Express +
 ### 1. Clone & Install:
 
 ```bash
-git clone https://github.com/yourusername/music-hub-backend.git
+git clone https://github.com/nahomwg/mern-backend.git
 cd music-hub-backend
 npm install
